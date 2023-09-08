@@ -34,7 +34,7 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           env:
             - name: NODE_ENV
-              value: production
+              value: {{ .Values.environment | default "production" }}
             - name: DATABASE_SERVICE_NAME
               value: {{ .Release.Name }}-mongodb
               {{- if eq .Values.mongodb.architecture "replicaset" -}}
@@ -60,6 +60,7 @@ spec:
               value: slave
             - name: NOTIFYBC_WORKER_PROCESS_COUNT
               value: '1'
+            {{- if .Values.redis.enabled -}}
             - name: REDIS_SERVICE_NAME
               value: {{ .Release.Name }}-redis
             - name: REDIS_PASSWORD
@@ -67,6 +68,7 @@ spec:
                 secretKeyRef:
                   name: {{ .Release.Name }}-redis
                   key: redis-password
+            {{- end }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:

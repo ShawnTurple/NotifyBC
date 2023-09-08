@@ -68,3 +68,6 @@ typings/
 /server/database/data.json
 /server/certs/**
 !/server/certs/.keep
+.DS_Store
+helm-output.yaml
+sandbox

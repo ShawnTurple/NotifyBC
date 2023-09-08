@@ -1,3 +1,4 @@
+{{- if .Values.cronJob.enabled }}
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
@@ -11,3 +12,4 @@ spec:
     name: {{ include "NotifyBC.fullname" . }}-cron
   minReplicas: 1
   maxReplicas: 1
+{{- end }}

@@ -43,4 +43,4 @@ spec:
             - name: export
               persistentVolumeClaim:
                 claimName: {{ include "NotifyBC.fullname" . }}-cronjob-mongodb-backup
-{{ end }}
+{{- end }}
